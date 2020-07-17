@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <meta name="description" content=""/>
+        <meta name="author" content=""/>
+
+        <title>SOSIFOD - Novo Administrador</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+
+        <!-- Custom fonts for this template -->
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i,900,900i" rel="stylesheet"/>
+        <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/>
+
+        <!-- Custom styles for this template -->
+        <link href="css/coming-soon.css" rel="stylesheet"/>
+
+        <!-- -->
+        <link href="css/styles.css" rel="stylesheet" type="text/css"/>    
+    </h:head>
+
+    <h:body id="cadastro-oficial">
+        <div class="container">
+            <div class="card o-hidden border-0 shadow-lg my-5">
+                <div class="card-body p-0">
+                    <!-- Nested Row within Card Body -->
+                    <div class="row">
+                        <div class="col-lg-6 d-none d-lg-block bg-register-image">
+                            <img class="bg-imagem" src="img/justica.jpg"/>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="p-5">
+                                <div class="text-center">
+                                    <h1 class="h4 text-gray-900 mb-4">Cadastro de Administrador</h1>
+                                </div>
+                                <h:form class="user" id="formAdm">  
+                                    <p:outputPanel rendered="#{!administradorMb.cadastroConcluido}">                                        
+
+                                        <div class="form-group row">                                            
+                                            <div class="col-sm-12 mb-3 mb-sm-0">
+                                                <p:messages showDetail="false" />
+                                                <h:inputText class="form-control form-control-user" a:placeholder="Nome" value="#{administradorMb.administrador.nome}" id="nome" required="true"  requiredMessage="Digite o nome" validatorMessage="Insira um nome válido">
+                                                    <f:validateRegex pattern="[a-z A-Z]{6,100}"/>                    
+                                                </h:inputText> 
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <h:inputText class="form-control form-control-user" a:placeholder="Email" id="email" value="#{administradorMb.administrador.email}" required="true" requiredMessage="Digite o email" validatorMessage="Insira um email válido">                                     
+                                                <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />                        
+                                            </h:inputText>   
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                                <p:inputMask placeholder="CPF" class="form-control form-control-user" id="cpf" value="#{administradorMb.administrador.cpf}" mask="999.999.999-99" required="true" requiredMessage="Digite o CPF" /> 
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <p:inputMask placeholder="Telefone" class="form-control form-control-user" id="fone" value="#{administradorMb.administrador.fone}" mask="(99)99999-9999"/> 
+                                            </div>
+                                        </div>  
+                                        <div class="form-group row">
+                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                                <p:password id="senha" value="#{administradorMb.administrador.senha}" match="confSenha" required="true" 
+                                                            feedback="true" inline="true" requiredMessage="Digite uma senha" 
+                                                            validatorMessage="Senha e/ou confirmação inválida [Minimo 5 Caracteres]"
+                                                            promptLabel="Digite a senha" class="form-control form-control-user"
+                                                            weakLabel="Força da senha : Fraca" 
+                                                            goodLabel="Força da senha : Média"
+                                                            placeholder="Senha"
+                                                            strongLabel="Força da senha : Forte"> 
+                                                    <f:validateLength minimum="5" maximum="100"/>
+                                                </p:password>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <p:password id="confSenha" value="#{administradorMb.confirmaSenha}" required="true" 
+                                                            feedback="true" inline="true" requiredMessage="Confirme a senha"
+                                                            class="form-control form-control-user"
+                                                            promptLabel="Confirmação de senha"
+                                                            weakLabel="Força da senha : Fraca" 
+                                                            goodLabel="Força da senha : Média"
+                                                            placeholder="Confirmar senha"
+                                                            strongLabel="Força da senha : Forte"/>
+                                            </div>
+                                        </div>
+                                        <p:commandButton value="Salvar" actionListener="#{administradorMb.cadastrarAdministrador}" update="formAdm" class="btn btn-md btn-secondary btn-block" style="font-size: small">
+                                            <p:confirm header="Salvar" message="Salvar novo administrador?"  />
+                                        </p:commandButton>
+                                    </p:outputPanel>
+                                    <p:panel id="cadastroConcluido" class="boxCadastro" rendered="#{administradorMb.cadastroConcluido}">
+                                        <h2>Cadastro de administrador concluído, clique no botão para continuar...</h2><br />
+                                        <div style="text-align: right">
+                                            <p:linkButton  value="Continuar..." outcome="index" style="font-size: small" />                        
+                                        </div>                             
+                                    </p:panel>
+                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no"  />
+                                        <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" />                
+                                    </p:confirmDialog>
+                                    <hr/>
+                                </h:form>
+                                <div class="text-center">
+                                    <h:link outcome="index" class="small" value="Já possui uma conta? Faça o login!"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </h:body>   
+</html>
+
