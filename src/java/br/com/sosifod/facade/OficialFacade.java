@@ -2,6 +2,7 @@ package br.com.sosifod.facade;
 
 import br.com.sosifod.bean.Oficial;
 import br.com.sosifod.dao.OficialDao;
+import br.com.sosifod.dto.OficialDto;
 import br.com.sosifod.exception.DaoException;
 import br.com.sosifod.util.Seguranca;
 import br.com.sosifod.util.SosifodUtil;
@@ -78,5 +79,30 @@ public class OficialFacade {
             e.printStackTrace();
             throw e;
         }
-    }    
+    }  
+    
+    public static List<OficialDto> listaOficiaisDto() throws DaoException {
+        try {
+            List<Oficial> oficiais = oficialDao.listaOficiais();
+            List<OficialDto> oficiaisDto = new ArrayList<>();
+            
+            for (Oficial o : oficiais) {
+                OficialDto oD = new OficialDto();
+                oD.setCpf(o.getCpf());
+                oD.setEmail(o.getEmail());
+                oD.setId(o.getId());
+                oD.setNome(o.getNome());
+                oficiaisDto.add(oD);
+            }
+            return oficiaisDto;
+        } catch (DaoException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            throw e;
+        } catch (Exception e) {
+            System.out.println("****Problema ao buscar lista de oficiais de justiça DTO [Facade]****" + e);
+            e.printStackTrace();
+            throw e;
+        }        
+    }
 }

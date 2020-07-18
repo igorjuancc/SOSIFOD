@@ -52,6 +52,7 @@ CREATE TABLE tb_intimacao(
 	FOREIGN KEY (id_endereco_intimacao) REFERENCES tb_endereco (id_endereco)
 );
 
+alter table tb_intimacao add column status_intimacao Boolean;
 
 /* ================================================================================ */
 

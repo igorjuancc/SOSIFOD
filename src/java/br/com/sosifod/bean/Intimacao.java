@@ -18,7 +18,7 @@ import javax.persistence.Temporal;
 
 @Entity
 @Table(name = "tb_intimacao")
-@SequenceGenerator(name = "seq_intimacao", sequenceName = "tb_intimaca_id_intimacao_seq")
+@SequenceGenerator(name = "seq_intimacao", sequenceName = "tb_intimacao_id_intimacao_seq")
 public class Intimacao implements Serializable {
     private int id;
     private int processo;
@@ -28,6 +28,7 @@ public class Intimacao implements Serializable {
     private String nome;
     private Oficial oficial;
     private Endereco endereco;
+    private Boolean status;
 
     public Intimacao() {
     }
@@ -110,6 +111,15 @@ public class Intimacao implements Serializable {
         this.endereco = endereco;
     }
 
+    @Column(name = "status_intimacao")
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 3;
