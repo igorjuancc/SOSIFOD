@@ -26,9 +26,13 @@ public class AdministradorFacade {
 
             if (!SosifodUtil.isCPF(administrador.getCpf())) {
                 mensagens.add("CPF Inválido");
+            } else if ((buscaAdministradorCpf(administrador.getCpf()) != null) || (OficialFacade.buscaOficialCpf(administrador.getCpf()) != null)) {
+                mensagens.add("CPF já cadastrado");
             }
             if (!Seguranca.isEmail(administrador.getEmail())) {
                 mensagens.add("Email Inválido");
+            } else if ((buscaAdministradorEmail(administrador.getEmail()) != null) || (OficialFacade.buscaOficialEmail(administrador.getEmail()) != null)) {
+                mensagens.add("Email já cadastrado");
             }
 
             if (mensagens.isEmpty()) {
@@ -51,4 +55,31 @@ public class AdministradorFacade {
         }
     }
 
+    public static Administrador buscaAdministradorCpf(String cpf) throws DaoException {
+        try {
+            return administradorDao.buscaAdministradorCpf(cpf);
+        } catch (DaoException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            throw e;
+        } catch (Exception e) {
+            System.out.println("****Problema ao buscar administrador por CPF [Facade]****" + e);
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    public static Administrador buscaAdministradorEmail(String email) throws DaoException {
+        try {
+            return administradorDao.buscaAdministradorEmail(email);
+        } catch (DaoException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            throw e;
+        } catch (Exception e) {
+            System.out.println("****Problema ao buscar administrador por email [Facade]****" + e);
+            e.printStackTrace();
+            throw e;
+        }
+    }
 }

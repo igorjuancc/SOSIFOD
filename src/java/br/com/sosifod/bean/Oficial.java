@@ -23,6 +23,7 @@ public class Oficial implements Serializable {
     private String nome;
     private String email;
     private String senha;
+    private String cpf;
     private List<Intimacao> intimacoes;
 
     public Oficial() {
@@ -74,15 +75,25 @@ public class Oficial implements Serializable {
     public void setIntimacoes(List<Intimacao> intimacoes) {
         this.intimacoes = intimacoes;
     }
+    
+    @Column(name = "cpf_oficial")
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 47 * hash + this.id;
-        hash = 47 * hash + Objects.hashCode(this.nome);
-        hash = 47 * hash + Objects.hashCode(this.email);
-        hash = 47 * hash + Objects.hashCode(this.senha);
-        hash = 47 * hash + Objects.hashCode(this.intimacoes);
+        hash = 37 * hash + this.id;
+        hash = 37 * hash + Objects.hashCode(this.nome);
+        hash = 37 * hash + Objects.hashCode(this.email);
+        hash = 37 * hash + Objects.hashCode(this.senha);
+        hash = 37 * hash + Objects.hashCode(this.cpf);
+        hash = 37 * hash + Objects.hashCode(this.intimacoes);
         return hash;
     }
 
@@ -108,6 +119,9 @@ public class Oficial implements Serializable {
             return false;
         }
         if (!Objects.equals(this.senha, other.senha)) {
+            return false;
+        }
+        if (!Objects.equals(this.cpf, other.cpf)) {
             return false;
         }
         if (!Objects.equals(this.intimacoes, other.intimacoes)) {

@@ -35,6 +35,7 @@ CREATE TABLE tb_oficial(
 	id_oficial SERIAL PRIMARY KEY NOT NULL,
 	nome_oficial VARCHAR(100) NOT NULL,
 	email_oficial VARCHAR(30) UNIQUE,
+	cpf_oficial VARCHAR(11) UNIQUE NOT NULL,	
 	senha_oficial VARCHAR(100) NOT NULL
 );
 
