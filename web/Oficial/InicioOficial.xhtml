@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/Oficial/OficialTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="titulo">Oficial - Início</ui:define>
+    <ui:define name="corpo">        
+        <h:form>
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800">Intimações</h1>
+            </div>
+
+            <h:dataTable id="tabIntima" value="#{oficialMb.intimacoes}" var="intimacao" class="table table-bordered">
+                <h:column>
+                    <f:facet name="header" >Intimado</f:facet>  
+                        #{intimacao.nome}
+                </h:column>
+                <h:column>
+                    <f:facet name="header" >Estado</f:facet>  
+                        #{oficialMb.statusIntimacao(intimacao)}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Ação</f:facet>                         
+
+                    <h:outputLabel class='btn btn-sm btn-primary'>                            
+                        <p:ajax event="click" listener="#{oficialMb.verIntimacao(intimacao.id)}" />
+                        <i class='fas fa-eye'></i>                           
+                    </h:outputLabel>
+
+                    <h:outputLabel class='btn btn-sm btn-primary'  style="margin-left: 0.5vw" >
+                        <p:ajax event="click" listener="#{oficialMb.setIntimacao(intimacao)}" oncomplete="PF('executar').show()" update="j_idt19:executar"  />
+                        <i class="fas fa-pen"></i> 
+                    </h:outputLabel>
+
+                </h:column>
+
+            </h:dataTable>
+            <p:dialog id="executar" widgetVar="executar" modal="true" >
+                <p:outputPanel id="panelConf">
+                    <h2>Intimacao #{oficialMb.intimacao.id}</h2>
+                    <p:messages showDetail="false" />
+                    <h4>Executar intimação</h4>
+                    <div style=" text-align: center">
+                        <p:commandButton value="Executado" actionListener="#{oficialMb.atualizarIntimacao(true)}" disabled="#{oficialMb.intimacao.status}" update="panelConf"> 
+                            <p:confirm header="Executar" message="Atualizar execução de intimação?" />
+                        </p:commandButton>                        
+                        <p:commandButton value="Não executado" actionListener="#{oficialMb.atualizarIntimacao(false)}" disabled="#{oficialMb.intimacao.status}" update="panelConf"> 
+                            <p:confirm header="Atualizar" message="Atualizar não execução de intimação?" />
+                        </p:commandButton>                        
+                    </div>
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no"  />
+                        <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" />                
+                    </p:confirmDialog>                       
+                </p:outputPanel>                                       
+            </p:dialog>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,82 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>
+            <ui:insert name="titulo">Template</ui:insert>
+        </title>
+        <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/js/CalendarioPrimefaces.js"></script>
+        <link href="#{facesContext.externalContext.requestContextPath}/vendor/fontawesome-free/css/all.css" rel="stylesheet" type="text/css"/>         
+        <link href="#{facesContext.externalContext.requestContextPath}/css/sb-admin-2.css" rel="stylesheet"/>
+    </h:head>
+    <h:body>        
+        <div id="wrapper">
+
+            <!-- Sidebar -->
+            <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="tela_principal.html">
+
+                    <div class="sidebar-brand-text mx-3">SOSIFOD</div>
+                </a>
+
+                <hr class="sidebar-divider my-0" />
+
+                <li class="nav-item active">
+                    <h:link class="nav-link" value="Intimações" outcome="InicioOficial">
+                        <i class="fas fa-file-alt"></i>                    
+                    </h:link>          
+                </li>
+            </ul>
+            <!-- End of Sidebar -->
+
+
+            <div id="content-wrapper" class="d-flex flex-column">
+
+                <div id="content">
+
+                    <h:form>
+                        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                            <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                                <i class="fa fa-bars"></i>
+                            </button>
+
+                            <div class="dropdown-menu-right" aria-labelledby="userDropdown">
+                                <!-- <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2"></i>
+                                </a>   -->
+                                <p:commandButton type="button" icon="ui-icon-extlink">
+                                    <p:ajax event="click" listener="#{loginMb.logout}" />
+                                    <p:confirm header="Sair" message="Sair do sistema?" />                    
+                                </p:commandButton>
+                            </div>       
+
+                        </nav> 
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no"  />
+                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" />                
+                        </p:confirmDialog>
+                    </h:form>
+
+
+                    <div class="container-fluid">
+
+                        <ui:insert name="corpo" />
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <a class="scroll-to-top rounded" href="#page-top">
+                <i class="fas fa-angle-up"></i>
+            </a>
+
+        </div>
+
+    </h:body>
+</html>

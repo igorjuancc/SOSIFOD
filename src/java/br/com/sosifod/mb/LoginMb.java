@@ -43,8 +43,10 @@ public class LoginMb implements Serializable {
 
             if (this.adm != null) {
                 ctxExt.redirect(ctxExt.getRequestContextPath() + "/Administrador/InicioAdministrador.jsf");
+                this.oficial = new Oficial();
             } else if (this.oficial != null) {
                 ctxExt.redirect(ctxExt.getRequestContextPath() + "/Oficial/InicioOficial.jsf");
+                this.adm = new Administrador();
             } else {
                 this.senha = "";
                 this.adm = new Administrador();
