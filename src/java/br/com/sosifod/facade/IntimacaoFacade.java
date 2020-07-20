@@ -179,10 +179,15 @@ public class IntimacaoFacade {
 
     public static String atualizarIntimacao(Intimacao intimacao) throws DaoException {
         try {
+            String rtn = null;
             Intimacao intVerificar = intimacaoDao.buscaIntimacaoId(intimacao.getId());
-            if ((intVerificar != null) && (intVerificar.getStatus())) {
-                return "Intimação já foi executada";
-            } else {
+            if (intVerificar != null) {
+                if ((intVerificar.getStatus() != null) && (intVerificar.getStatus())) {
+                    rtn = "Intimação já foi executada";                    
+                }                
+            } 
+            
+            if (rtn == null) {
                 intimacao.setDataHoraExec(new Date());
                 intimacaoDao.atualizarIntimacao(intimacao);
 
@@ -211,11 +216,12 @@ public class IntimacaoFacade {
                 intimacaoDto = client.target("http://localhost:8080/SIJOGA/webresources/sijoga/execIntimacao").request(MediaType.APPLICATION_JSON).post(Entity.json(intimacaoDto), IntimacaoDto.class);
                 
                 if (intimacaoDto.getId() == 0) {
-                    return "Problemas ao criar nova fase no processo!";
+                    rtn = "Problemas ao criar nova fase no processo!";
                 } else {
-                    return null;
+                    rtn = null;
                 }
             }
+            return rtn;
         } catch (DaoException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
