@@ -63,6 +63,25 @@ public class IntimacaoDao {
         }        
     }
     
+    public List<Intimacao> listaIntimacao() throws DaoException {
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            try {
+                session.beginTransaction();
+                Query select = session.createQuery("SELECT DISTINCT i FROM Intimacao i");   
+                List<Intimacao> intimacoes = select.list();
+                return intimacoes;
+            } finally {
+                session.getTransaction().commit();
+                session.close();
+            }
+        } catch (HibernateException e) {
+            throw new DaoException("****Problema ao listar intimacoes  [Hibernate]****", e);
+        } catch (Exception e) {
+            throw new DaoException("****Problema ao listar intimacoes  [DAO]****", e);
+        }        
+    }
+    
     public Intimacao buscaIntimacaoId(int id) throws DaoException {
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
@@ -80,6 +99,23 @@ public class IntimacaoDao {
             throw new DaoException("****Problema ao buscar intimacao por id [Hibernate]****", e);
         } catch (Exception e) {
             throw new DaoException("****Problema ao buscar intimacao por id [DAO]****", e);
+        }        
+    }
+    
+    public void apagarIntimacao(Intimacao intimacao) throws DaoException {
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            try {
+                session.beginTransaction();
+                session.delete(intimacao);
+            } finally {
+                session.getTransaction().commit();
+                session.close();
+            }
+        } catch (HibernateException e) {
+            throw new DaoException("****Problema ao apagar intimacao [Hibernate]****", e);
+        } catch (Exception e) {
+            throw new DaoException("****Problema ao apagar intimacao [DAO]****", e);
         }        
     }
 }

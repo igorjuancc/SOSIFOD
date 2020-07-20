@@ -38,7 +38,7 @@ public class VerificaLogin implements PhaseListener {
                     }
                     break;
                 case 1:
-                    if ((!pagina.equals("/Administrador/InicioAdministrador.xhtml")) && (!pagina.equals("/Administrador/CadastroOficial.xhtml")) && (!pagina.equals("/ErroPage.xhtml"))) {
+                    if ((!pagina.equals("/Administrador/InicioAdministrador.xhtml")) && (!pagina.equals("/Administrador/CadastroOficial.xhtml")) && (!pagina.equals("/Administrador/VerIntimacao.xhtml")) && (!pagina.equals("/ErroPage.xhtml"))) {
                         ctxExt.redirect(ctxExt.getRequestContextPath() + "/Administrador/InicioAdministrador.jsf");
                     }
                     break;

@@ -134,6 +134,20 @@ public class IntimacaoFacade {
             throw e;
         }
     }
+    
+    public static List<Intimacao> listaIntimacao() throws DaoException {
+        try {
+            return intimacaoDao.listaIntimacao();
+        } catch (DaoException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            throw e;
+        } catch (Exception e) {
+            System.out.println("****Problema ao listar intimacoes [Facade]****" + e);
+            e.printStackTrace();
+            throw e;
+        }
+    }
 
     public static Intimacao buscaIntimacaoId(int id) throws DaoException {
         try {
@@ -144,6 +158,20 @@ public class IntimacaoFacade {
             throw e;
         } catch (Exception e) {
             System.out.println("****Problema ao buscar intimacao por id [Facade]****" + e);
+            e.printStackTrace();
+            throw e;
+        }
+    }
+    
+    public static void apagarIntimacao(Intimacao intimacao) throws DaoException {
+        try {
+            intimacaoDao.apagarIntimacao(intimacao);
+        } catch (DaoException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            throw e;
+        } catch (Exception e) {
+            System.out.println("****Problema ao apagar intimacao [Facade]****" + e);
             e.printStackTrace();
             throw e;
         }
